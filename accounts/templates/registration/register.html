@@ -1,0 +1,157 @@
+{% extends "home/base.html" %}
+
+
+
+{% block title %}Register{% endblock title %}
+
+{% block content %}
+<div class="registration-container">
+  <div class="registration-header">
+    <h1 class="registration-title">Join Our Family</h1>
+    <p class="registration-subtitle">Create your account to get started</p>
+  </div>
+  
+  <form action="{% url 'accounts:register' %}" method="post" class="registration-form">
+    {% csrf_token %}
+    
+    <!-- First Column -->
+    <div class="form-group">
+      <label for="id_first_name">First Name</label>
+      {{ form.first_name }}
+      {{ form.first_name.errors }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_last_name">Last Name</label>
+      {{ form.last_name }}
+      {{ form.last_name.errors }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_fathers_name">Father's Name</label>
+      {{ form.fathers_name }}
+      {{ form.fathers_name.errors }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_mothers_name">Mother's Name</label>
+      {{ form.mothers_name }}
+      {{ form.mothers_name.errors }}
+    </div>
+    
+    <!-- Second Column -->
+    <div class="form-group">
+      <label for="id_username">Username</label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_email">Email</label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_phone_number">Phone Number</label>
+      {{ form.phone_number }}
+      {{ form.phone_number.errors }}
+    </div>
+    
+    <div class="form-group full-width">
+      <label for="id_address">Address</label>
+      {{ form.address }}
+      {{ form.address.errors }}
+    </div>
+    
+    <!-- Password Fields -->
+    <div class="form-group">
+      <label for="id_password1">Password</label>
+      {{ form.password1 }}
+      {{ form.password1.errors }}
+      <div class="password-strength">
+        <div class="strength-meter" id="passwordStrength"></div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="id_password2">Confirm Password</label>
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+    </div>
+    
+    <button type="submit" name="submit" class="submit-btn">
+      <i class="fas fa-user-plus"></i> Register As A Member
+    </button>
+  </form>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<script>
+  // Password Strength Meter
+  document.getElementById('id_password1').addEventListener('input', function() {
+    const password = this.value;
+    const strengthMeter = document.getElementById('passwordStrength');
+    let strength = 0;
+    
+    // Check for length
+    if (password.length > 7) strength += 1;
+    
+    // Check for uppercase letters
+    if (password.match(/[A-Z]/)) strength += 1;
+    
+    // Check for numbers
+    if (password.match(/[0-9]/)) strength += 1;
+    
+    // Check for special characters
+    if (password.match(/[^A-Za-z0-9]/)) strength += 1;
+    
+    // Update strength meter
+    switch(strength) {
+      case 0:
+        strengthMeter.style.width = '0%';
+        strengthMeter.style.backgroundColor = '#e74c3c';
+        break;
+      case 1:
+        strengthMeter.style.width = '25%';
+        strengthMeter.style.backgroundColor = '#e74c3c';
+        break;
+      case 2:
+        strengthMeter.style.width = '50%';
+        strengthMeter.style.backgroundColor = '#f39c12';
+        break;
+      case 3:
+        strengthMeter.style.width = '75%';
+        strengthMeter.style.backgroundColor = '#f1c40f';
+        break;
+      case 4:
+        strengthMeter.style.width = '100%';
+        strengthMeter.style.backgroundColor = '#2ecc71';
+        break;
+    }
+  });
+  
+  // Real-time validation feedback
+  document.querySelectorAll('.form-control').forEach(input => {
+    input.addEventListener('blur', function() {
+      if (this.value.trim() !== '') {
+        this.style.backgroundColor = '#f8f9fa';
+      } else {
+        this.style.backgroundColor = '#fff6f6';
+      }
+    });
+    
+    input.addEventListener('focus', function() {
+      this.style.backgroundColor = 'white';
+    });
+  });
+  
+  // Username availability check (conceptual - would need backend integration)
+  document.getElementById('id_username').addEventListener('blur', function() {
+    // In a real implementation, you would make an AJAX call here
+    console.log('Check username availability:', this.value);
+  });
+</script>
+{% endblock content %}

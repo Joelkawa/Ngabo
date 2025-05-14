@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Add an Event{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-container">
+            <h2>Add Your Event</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_name">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_content">{{ form.content.label }}</label>
+                    {{ form.content }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_image">{{ form.image.label }}</label>
+                    {{ form.image }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_video">{{ form.video.label }}</label>
+                    {{ form.video }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_happening_date">{{ form.happening_date.label }}</label>
+                    {{ form.happening_date }}
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

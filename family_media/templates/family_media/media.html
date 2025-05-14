@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Family Photos and Videos{% endblock title %}
+
+{% block content %}
+<a id="add-media-link" href="{% url 'family_media:add_media' %}">Add to Gallery</a>
+<h2 id="media-title">Gallery</h2>
+<div class="media">
+{% for data in our_media %}
+  <div class="media-item">
+    <p>{{ data.heading }}</p>
+    {% if data.video %}
+      <video>
+          <source src="{{ data.video.url }}">
+      </video>
+      {% endif %}
+      {% if data.images %}
+      <img src="{{ data.images.url }}" height="300px" width="300px">
+      {% endif %}
+  </div>
+ 
+{% endfor %}
+ </div>
+
+
+
+{% endblock content %}

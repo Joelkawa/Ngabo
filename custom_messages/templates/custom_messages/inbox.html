@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Inbox{% endblock title %}
+
+{% block content %}
+<div class="inbox-container">
+  <div class="inbox-header">
+    <h1 class="inbox-title">Inbox</h1>
+    <a href="{% url 'custom_messages:send' %}" class="compose-btn">Compose Message</a>
+  </div>
+  
+  <ul class="message-list">
+    {% for message in messages %}
+      <li class="message-item">
+        <div class="message-sender">From: {{ message.sender }}</div>
+        <div class="message-contents">{{ message.contents }}</div>
+        <div class="message-meta">
+          <span class="message-timestamp">{{ message.timestamp }}</span>
+          <a href="{% url 'custom_messages:reply' message.id %}" class="reply-link">Reply</a>
+        </div>
+      </li>
+    {% empty %}
+      <div class="empty-message">
+        <p>No messages yet</p>
+      </div>
+    {% endfor %}
+  </ul>
+</div>
+   
+   
+
+
+
+
+{% endblock content %}

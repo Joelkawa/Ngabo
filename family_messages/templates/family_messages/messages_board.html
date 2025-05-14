@@ -1,0 +1,118 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Family Talk{% endblock title %}
+
+{% block content %}
+ <div class="family-chat-container">
+  <div class="family-header">
+    <h1 class="family-title">Ngabo Izaaya Family</h1>
+    <p class="family-subtitle">Family group chat</p>
+  </div>
+  
+  <div class="message-feed" id="messageFeed">
+    <ul class="message-list">
+      {% for message in messages %}
+        {% if message.text_message %}
+          <li class="message-item {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+            <div class="message-meta">
+              <span class="message-sender">{{ message.sender }}</span>
+              <span class="message-date">{{ message.date_added }}</span>
+            </div>
+            <div class="message-content text-message">
+              {{ message.text_message }}
+            </div>
+          </li>
+        {% endif %}
+        
+        {% if message.image_message %}
+          <li class="message-item {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+            <div class="message-meta">
+              <span class="message-sender">{{ message.sender }}</span>
+              <span class="message-date">{{ message.date_added }}</span>
+            </div>
+            <div class="media-container">
+              <img src="{{ message.image_message.url }}" alt="Family photo">
+            </div>
+          </li>
+        {% endif %}
+        
+        {% if message.video_message %}
+          <li class="message-item {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+            <div class="message-meta">
+              <span class="message-sender">{{ message.sender }}</span>
+              <span class="message-date">{{ message.date_added }}</span>
+            </div>
+            <div class="media-container">
+              <video controls>
+                <source src="{{ message.video_message.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div class="message-form-container">
+    <form action="{% url 'family_messages:send' %}" method="post" enctype="multipart/form-data" class="message-form">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="id_text_message">Message</label>
+        {{ form.text_message }}
+      </div>
+      
+      <div class="upload-actions">
+        <div class="file-input-container">
+          <label class="file-input-label" for="id_image_message" title="Add photo">
+            <i class="fas fa-camera"></i>
+            {{ form.image_message }}
+          </label>
+        </div>
+        
+        <div class="file-input-container">
+          <label class="file-input-label" for="id_video_message" title="Add video">
+            <i class="fas fa-video"></i>
+            {{ form.video_message }}
+          </label>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" name="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Auto-scroll to bottom of message feed
+  const messageFeed = document.getElementById('messageFeed');
+  messageFeed.scrollTop = messageFeed.scrollHeight;
+  
+  // Show tooltip when file is selected
+  document.querySelectorAll('.file-input').forEach(input => {
+    input.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        const label = this.parentNode;
+        label.setAttribute('title', this.files[0].name);
+        
+        // Briefly animate the icon to show selection
+        label.querySelector('i').style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          label.querySelector('i').style.transform = 'scale(1)';
+        }, 300);
+      } else {
+        this.parentNode.setAttribute('title', this.getAttribute('title'));
+      }
+    });
+  });
+</script>
+
+
+
+
+{% endblock content %}

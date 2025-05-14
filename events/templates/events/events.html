@@ -1,0 +1,28 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Events{% endblock title %}
+
+{% block content %}
+  <h2 id="event-title">Events Happening Soon</h2>
+  <a id="add-event-link" href="{% url 'events:add_event' %}">Add your Event</a>
+  {% for event in events %}
+    <h4 id="event-head">{{ event.name }}</h4>
+    <p id="event">{{ event.content }}</p>
+    {% if event.image %}
+    <img id="event-image" src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
+    {% endif %}
+    {% if event.video %}
+      <video id="event-video" width="320" height="240" controls>
+          <source src="{{ event.video.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+    {% endif %}
+    <a id="delete-event-link" href="{% url 'events:delete_event' event.id %}">Delete The Event</a>
+    {% empty %}
+      <p>No events available at this moment</p>
+
+  {% endfor %}
+  
+
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Send Message{% endblock title %}
+
+{% block content %}
+<div class="message-container">
+  <div class="message-header">
+    <h1 class="message-title">Compose Message</h1>
+  </div>
+  
+  {% if reply_to %}
+  <div class="reply-preview">
+    <div class="reply-heading">
+      <i class="fas fa-reply"></i> Replying to this message
+    </div>
+    <div class="reply-meta">
+      <strong>From:</strong> {{ reply_to.sender }}
+    </div>
+    <div class="reply-meta">
+      <strong>Date:</strong> {{ reply_to.timestamp }}
+    </div>
+    <div class="reply-content">
+      {{ reply_to.contents }}
+    </div>
+  </div>
+  {% endif %}
+  
+  <form action="{% url 'custom_messages:send' %}" method="post" class="message-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="id_recipient">Recipient</label>
+      {{ form.recipient }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_subject">Subject</label>
+      {{ form.subject }}
+    </div>
+    
+    <div class="form-group">
+      <label for="id_contents">Message</label>
+      {{ form.contents }}
+    </div>
+    
+    <button type="submit" name="submit" class="submit-btn">
+      <i class="fas fa-paper-plane"></i> Send Message
+    </button>
+  </form>
+</div>
+
+<script>
+  // Add floating labels effect
+  document.querySelectorAll('.form-control').forEach(input => {
+    input.addEventListener('focus', function() {
+      this.parentNode.querySelector('label').style.color = '#3498db';
+    });
+    
+    input.addEventListener('blur', function() {
+      if (!this.value) {
+        this.parentNode.querySelector('label').style.color = '#2c3e50';
+      }
+    });
+  });
+</script>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Edit Ancestry{% endblock title %}
+
+{% block content %}
+<div class="edit-ancestry">
+  <h3>Edit the Stroy</h3>
+  <form id="edit-ancestry-form" action="{% url 'ancestry:edit_ancestry' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Save</button>
+
+  </form>
+</div>
+
+
+{% endblock content %}

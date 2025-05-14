@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Ancestry{% endblock title %}
+
+{% block content %}
+<div class="ancestry">
+    <h1>The Story About Our Origin</h1>
+
+    {% for st in story %}
+      <p id="story">
+        
+          {{ st.origin }}
+
+      </p>
+      <p>Last Updated On: <em>{{ st.last_updated}}</em></p>
+      {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'ancestry:edit_ancestry' %}">Edit The Story</a>
+      {% endif %}
+
+    {% endfor %}
+</div>
+  
+
+
+
+{% endblock content %}

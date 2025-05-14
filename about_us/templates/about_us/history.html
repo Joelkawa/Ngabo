@@ -1,0 +1,33 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Our History{% endblock title %}
+
+
+  {% block content %}
+  
+  <div class="hist">
+    <h2>THE NGABO IZAAYA GREAT PERSONALITIES</h2>
+
+    {% for hist in histories %}
+      <h3>{{ hist.subject }}</h3>
+      {% if hist.image %}
+      <img src="{{ hist.image.url }}" height="300px" width="300px">
+      {% endif %}
+      {% if hist.video %}
+      <video>
+          <source src="{{ post.video.url }}" type="video/mp4">
+      </video>
+      {% endif %}
+      <p>{{ hist.content }}</p>
+    {% endfor %}
+    {% if user.is_authenticated %}
+       <a href="{% url 'about_us:add_history' %}">Add New Biography</a>
+    {% endif %}
+  </div>
+
+
+
+
+
+
+{% endblock content %}

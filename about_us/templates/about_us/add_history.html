@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Add Bio{% endblock title %}
+
+{% block content %}
+  <div class="add-bio">
+    <h2>Add Biography</h2>
+
+    {% if user.is_authenticated %}
+      <p>Welcome, {{ user.username }}!</p>
+    {% else %}
+      <p>Please log in to add history.</p>
+    {% endif %}
+
+    {% if form.errors %}
+      <div class="error">
+        <p>Please correct the errors below:</p>
+        {{ form.errors }}
+      </div>
+    {% endif %}
+    <form id="add-bio-form" action="{% url 'about_us:add_history' %}" method='post' enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button name="submit">Add History</button>
+    </form>
+  </div>
+
+
+{% endblock content %}

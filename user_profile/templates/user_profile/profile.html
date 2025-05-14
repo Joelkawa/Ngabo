@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+{% block title %}User Profile{% endblock title %}
+
+{% block content %}
+  {% if error %}
+    <p>Up date</p>
+  {% else %}
+    <h1>{{ user_profile.user.username }}'s Profile </h1>
+    <p>Bio: {{ user_profile.bio }}</p>
+   {% if user_profile.profile_picture %}
+     <img src="{{ user_profile.profile_picture.url }}">
+   {% endif %}
+  {% endif %}
+  
+
+
+{% endblock content %}

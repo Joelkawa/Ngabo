@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Add Media{% endblock title %}
+
+{% block content %}
+  <div class="container">
+    <div class="form-container">
+      <h2>Add Media</h2>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="id_heading">{{ form.heading.label }}</label>
+          {{ form.heading }}
+        </div>
+        <div class="form-group">
+          <label for="id_images">{{ form.images.label }}</label>
+          {{ form.images }}
+        </div>
+
+        <div class="form-group">
+          <label for="id_video">{{ form.video.label }}</label>
+          {{ form.video }}
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Add a Post{% endblock title %}
+
+{% block content %}
+  <h3>Add a your post here:</h3>
+  <form action="{% url 'home:add_post' %}" method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add Post</button>
+  </form>
+
+
+{% endblock content %}
