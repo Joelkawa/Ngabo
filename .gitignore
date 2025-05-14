@@ -1,7 +1,5 @@
 __pycache__/
 *.log
 *.sqlite3
-.env
 venv/
 db.sqlite3
-staticfiles/
