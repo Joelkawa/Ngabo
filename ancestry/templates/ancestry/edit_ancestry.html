@@ -4,14 +4,20 @@
 
 {% block content %}
 <div class="edit-ancestry">
-  <h3>Edit the Stroy</h3>
+  <h3>Edit the Story</h3>
   <form id="edit-ancestry-form" action="{% url 'ancestry:edit_ancestry' %}" method='post'>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Save</button>
-
+    <div class="form-content">
+      {{ form.origin.label_tag }}
+      {{ form.origin }}
+      {% if form.origin.help_text %}
+        <small class="form-help-text">{{ form.origin.help_text }}</small>
+      {% endif %}
+      {% if form.origin.errors %}
+        <div class="form-errors">{{ form.origin.errors }}</div>
+      {% endif %}
+    </div>
+    <button type="submit" class="submit-button">Save Changes</button>
   </form>
 </div>
-
-
 {% endblock content %}
