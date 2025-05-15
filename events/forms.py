@@ -20,4 +20,5 @@ class AddEventForm(forms.ModelForm):
             'happening_date':'Happening Date',
                   }
         
-        widgets = {'content':forms.Textarea(attrs={'cols':80})}
+        widgets = {'content':forms.Textarea(attrs={'cols':80}),
+                   'happening_date':forms.DateInput(attrs={'type':'date'})}
