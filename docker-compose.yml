@@ -20,7 +20,14 @@ services:
 
   web:
     build: .
-    command: gunicorn family_project.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=Joel
+      - DJANGO_SUPERUSER_EMAIL=joelnahabwekawa10gmail.com
+      - DJANGO_SUPERUSER_PASSWORD=test@2025
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py createsuperuser --noinput &&
+             gunicorn family_project.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/Ngabo
     ports:
