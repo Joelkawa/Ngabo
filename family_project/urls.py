@@ -26,7 +26,6 @@ urlpatterns = [
     path('events/',include('events.urls')),
     path('messages/', include('custom_messages.urls')),
     path('family_messages/', include('family_messages.urls')),
-    path('profile/', include('user_profile.urls')),
     path('about_us/', include('about_us.urls')),
     path('ancestry/', include('ancestry.urls')),
     path('family_media/', include('family_media.urls'))
