@@ -24,5 +24,17 @@ def edit_ancestry(request):
     context = {'form':form, 'hist':hist}
     return render(request, 'ancestry/edit_ancestry.html', context)
 
+def add_ancestry(request):
+    if request.method == 'POST':
+        form = Edit_Ancestry_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ancestry:ancestry')
+        
+    else:
+        form = Edit_Ancestry_Form()
+
+    context = {'form':form}
+    return render(request, 'ancestry/add_ancestry.html', context)
 
     
