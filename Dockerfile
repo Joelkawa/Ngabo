@@ -16,4 +16,4 @@ COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 COPY .  .
 # Run the application
-CMD gunicorn family_project.wsgi:application --bind 0.0.0.0:8000
+CMD python manage.py migrate && gunicorn family_project.wsgi:application --bind 0.0.0.0:8000
